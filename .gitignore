@@ -1,0 +1,5 @@
+# Исходники фото и системный мусор
+*.HEIC
+*Zone.Identifier
+.DS_Store
+Thumbs.db
