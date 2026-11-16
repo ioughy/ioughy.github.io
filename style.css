@@ -174,13 +174,16 @@ h1, h2, h3, h4 {
   font-weight: 600;
   padding: 0.5rem 0.9rem;
   border-radius: 0.6rem;
-  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.site-nav .navbar-nav {
+  gap: 0.75rem;
 }
 
 .site-nav .nav-link:hover,
 .site-nav .nav-link:focus {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-2);
 }
 
 .navbar-toggler {
@@ -189,7 +192,7 @@ h1, h2, h3, h4 {
 }
 
 .navbar-toggler:focus {
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35);
+  box-shadow: 6px 6px 0 var(--press-shadow);
 }
 
 @media (max-width: 991.98px) {
@@ -227,7 +230,8 @@ h1, h2, h3, h4 {
   }
 
   .site-nav .nav-link {
-    padding: 0.6rem 0.25rem;
+    display: flex;
+    padding: 0.6rem 0.9rem;
   }
 }
 
@@ -536,6 +540,23 @@ h1, h2, h3, h4 {
   transform: translate(0, 0);
   touch-action: manipulation;
   transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.pressable-nav {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.pressable-nav:hover,
+.pressable-nav:focus-visible {
+  background: var(--surface-2);
+}
+
+.navbar-toggler.pressable-nav {
+  padding: 0.4rem 0.55rem;
 }
 
 .pressable:hover,

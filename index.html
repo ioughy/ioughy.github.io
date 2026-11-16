@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=43e22cd8a80b">
+  <link rel="stylesheet" href="style.css?v=245c10ebffc9">
   <script>
     // При обычном входе начинаем сверху; ссылки на разделы и «Назад» сохраняем.
     const freshPage = !location.hash &&
@@ -38,17 +38,17 @@
   <!-- Навигация -->
   <nav class="navbar navbar-expand-lg sticky-top site-nav">
     <div class="container">
-      <a class="navbar-brand" href="#top">Егор Макухин</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+      <a class="navbar-brand pressable pressable-nav" href="#top">Егор Макухин</a>
+      <button class="navbar-toggler pressable pressable-nav" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
               aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto gap-md-1">
-          <li class="nav-item"><a class="nav-link" href="#soft-skills">Soft skills</a></li>
-          <li class="nav-item"><a class="nav-link" href="#hard-skills">Hard skills</a></li>
-          <li class="nav-item"><a class="nav-link" href="#projects">Проекты</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contacts">Контакты</a></li>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link pressable pressable-nav" href="#soft-skills">Soft skills</a></li>
+          <li class="nav-item"><a class="nav-link pressable pressable-nav" href="#hard-skills">Hard skills</a></li>
+          <li class="nav-item"><a class="nav-link pressable pressable-nav" href="#projects">Проекты</a></li>
+          <li class="nav-item"><a class="nav-link pressable pressable-nav" href="#contacts">Контакты</a></li>
         </ul>
       </div>
     </div>
@@ -302,7 +302,7 @@
   <footer class="site-footer">
     <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
       <p class="mb-0">© <span id="year">2026</span> Егор Макухин</p>
-      <a href="#top" class="footer-up">Наверх <i class="bi bi-arrow-up"></i></a>
+      <a href="#top" class="footer-up pressable pressable-nav">Наверх <i class="bi bi-arrow-up"></i></a>
     </div>
   </footer>
 
