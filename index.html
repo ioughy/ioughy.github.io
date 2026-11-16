@@ -17,7 +17,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=eeb267b95a09">
+  <link rel="stylesheet" href="style.css?v=7b5171e82293">
+  <script>
+    // При обычном входе начинаем сверху; ссылки на разделы и «Назад» сохраняем.
+    const freshPage = !location.hash &&
+      performance.getEntriesByType('navigation')[0]?.type !== 'back_forward';
+    if (freshPage) {
+      history.scrollRestoration = 'manual';
+      window.addEventListener('pageshow', (event) => {
+        if (!event.persisted) window.scrollTo({ top: 0, behavior: 'instant' });
+      }, { once: true });
+      window.addEventListener('pagehide', () => {
+        history.scrollRestoration = 'auto';
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -296,6 +310,37 @@
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Явное состояние касания для Safari; свайпы и переходы по ссылкам нативные.
+    document.querySelectorAll('.pressable').forEach((button) => {
+      let releaseTimer;
+      let startX;
+      let startY;
+      const release = () => {
+        clearTimeout(releaseTimer);
+        button.classList.remove('is-pressed');
+      };
+      button.addEventListener('touchstart', (event) => {
+        release();
+        if (event.touches.length !== 1) return;
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+        button.classList.add('is-pressed');
+      }, { passive: true });
+      button.addEventListener('touchmove', (event) => {
+        const touch = event.touches[0];
+        if (event.touches.length !== 1 ||
+            Math.hypot(touch.clientX - startX, touch.clientY - startY) > 10) release();
+      }, { passive: true });
+      button.addEventListener('touchend', () => {
+        releaseTimer = setTimeout(release, 120);
+      }, { passive: true });
+      button.addEventListener('touchcancel', release, { passive: true });
+      window.addEventListener('pagehide', release);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) release();
+      });
+    });
 
     // Закрываем мобильное меню после выбора пункта
     const mainNav = document.getElementById('mainNav');

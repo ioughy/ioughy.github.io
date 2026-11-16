@@ -536,6 +536,7 @@ h1, h2, h3, h4 {
 
 .pressable:hover,
 .pressable:focus-visible,
+.btn.pressable.is-pressed,
 .btn.pressable:active {
   border-color: var(--press-shadow);
 }
@@ -554,10 +555,27 @@ h1, h2, h3, h4 {
 }
 
 .pressable:active,
-.btn.pressable:active {
+.btn.pressable:active,
+.pressable.is-pressed,
+.btn.pressable.is-pressed {
   transform: translate(6px, 6px);
   box-shadow: 0 0 0 var(--press-shadow);
   transition-duration: 0.06s;
+}
+
+/* Короткое касание успевает показать нажатие до перехода по ссылке. */
+.pressable.is-pressed,
+.btn.pressable.is-pressed {
+  transition-duration: 0s;
+}
+
+/* На сенсорном экране браузер может удерживать :active после отпускания. */
+@media (hover: none) {
+  .pressable:active:not(.is-pressed),
+  .btn.pressable:active:not(.is-pressed) {
+    transform: translate(0, 0);
+    box-shadow: 6px 6px 0 var(--press-shadow);
+  }
 }
 
 /* ---------- Подвал ---------- */
