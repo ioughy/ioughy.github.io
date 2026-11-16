@@ -134,15 +134,19 @@ h1, h2, h3, h4 {
 }
 
 .btn-accent {
-  --bs-btn-color: #1a1206;
-  --bs-btn-bg: var(--accent);
-  --bs-btn-border-color: var(--accent);
-  --bs-btn-hover-color: #1a1206;
-  --bs-btn-hover-bg: var(--accent-soft);
-  --bs-btn-hover-border-color: var(--accent-soft);
-  --bs-btn-active-color: #1a1206;
-  --bs-btn-active-bg: #e58e08;
-  --bs-btn-active-border-color: #e58e08;
+  --bs-btn-color: var(--text);
+  --bs-btn-bg: var(--surface);
+  --bs-btn-border-color: var(--press-shadow);
+  --bs-btn-hover-color: var(--text);
+  --bs-btn-hover-bg: var(--surface-2);
+  --bs-btn-hover-border-color: var(--press-shadow);
+  --bs-btn-active-color: var(--text);
+  --bs-btn-active-bg: var(--surface-2);
+  --bs-btn-active-border-color: var(--press-shadow);
+}
+
+.btn-accent .bi {
+  color: var(--accent);
 }
 
 /* ---------- Навигация ---------- */
