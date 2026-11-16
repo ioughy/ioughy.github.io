@@ -30,6 +30,18 @@ html {
   scroll-padding-top: calc(var(--nav-h) + 16px);
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
 body {
   background-color: var(--bg);
   background-image:
@@ -167,9 +179,7 @@ h1, h2, h3, h4 {
 
 .site-nav {
   min-height: var(--nav-h);
-  background: rgba(19, 19, 22, 0.72);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
 
@@ -208,14 +218,11 @@ h1, h2, h3, h4 {
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35);
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .site-nav {
     align-items: flex-start;
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
-    background: var(--bg);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
   }
 
   .site-nav .navbar-collapse {
