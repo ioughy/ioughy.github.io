@@ -257,6 +257,18 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Закрываем мобильное меню после выбора пункта
+    const mainNav = document.getElementById('mainNav');
+    if (mainNav) {
+      mainNav.querySelectorAll('.nav-link').forEach((link) => {
+        link.addEventListener('click', () => {
+          if (mainNav.classList.contains('show')) {
+            bootstrap.Collapse.getOrCreateInstance(mainNav, { toggle: false }).hide();
+          }
+        });
+      });
+    }
+
     // Плавное появление секций
     const items = document.querySelectorAll('[data-reveal]');
     if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
