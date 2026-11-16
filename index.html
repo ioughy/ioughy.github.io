@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#131316">
   <title>Егор Макухин — студент «Программной инженерии» СПбГУ</title>
   <meta name="description" content="Личная страница Егора Макухина: soft skills, hard skills, образование и контакты.">
 
@@ -17,12 +18,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
-  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
   <!-- Навигация -->
-  <nav class="navbar navbar-expand-lg fixed-top site-nav">
+  <nav class="navbar navbar-expand-lg sticky-top site-nav">
     <div class="container">
       <a class="navbar-brand" href="#top">Егор Макухин</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
@@ -45,7 +45,7 @@
     <!-- Hero -->
     <header class="hero">
       <div class="container">
-        <div class="row align-items-center g-5">
+        <div class="row align-items-center gy-5 gx-lg-5">
           <div class="col-lg-7">
             <p class="eyebrow" data-reveal>Привет, это я</p>
             <h1 class="hero-title" data-reveal>
@@ -56,8 +56,8 @@
               Мат-мех СПбГУ
             </p>
             <div class="mt-4" data-reveal>
-              <a href="#contacts" class="btn btn-accent btn-lg">
-                <i class="bi bi-envelope me-2"></i>Связаться
+              <a href="#contacts" class="btn btn-accent btn-lg pressable">
+                <i class="bi bi-envelope me-2" aria-hidden="true"></i>Написать мне
               </a>
             </div>
             <p class="hero-status mt-4 mb-0" data-reveal>
@@ -69,7 +69,7 @@
           <div class="col-lg-5">
             <div class="hero-portrait mx-auto" data-reveal>
               <div class="avatar">
-                <img src="avatar.jpg" alt="Фото Егора Макухина">
+                <img src="avatar.jpg" alt="Фото Егора Макухина" width="900" height="900">
               </div>
             </div>
           </div>
@@ -258,7 +258,7 @@
             <div class="col-lg-6">
               <div class="row g-3">
                 <div class="col-12">
-                  <a class="contact-link"
+                  <a class="contact-link pressable"
                      href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=makuhinegor219@gmail.com"
                      target="_blank" rel="noopener">
                     <span class="icon-badge"><i class="bi bi-envelope"></i></span>
@@ -266,13 +266,13 @@
                   </a>
                 </div>
                 <div class="col-12">
-                  <a class="contact-link" href="https://t.me/ioughy" target="_blank" rel="noopener">
+                  <a class="contact-link pressable" href="https://t.me/ioughy" target="_blank" rel="noopener">
                     <span class="icon-badge"><i class="bi bi-telegram"></i></span>
                     <span><small>Telegram</small>@ioughy</span>
                   </a>
                 </div>
                 <div class="col-12">
-                  <a class="contact-link" href="https://github.com/ioughy" target="_blank" rel="noopener">
+                  <a class="contact-link pressable" href="https://github.com/ioughy" target="_blank" rel="noopener">
                     <span class="icon-badge"><i class="bi bi-github"></i></span>
                     <span><small>GitHub</small>ioughy</span>
                   </a>
@@ -299,7 +299,7 @@
 
     // Закрываем мобильное меню после выбора пункта
     const mainNav = document.getElementById('mainNav');
-    if (mainNav) {
+    if (mainNav && window.bootstrap?.Collapse) {
       mainNav.querySelectorAll('.nav-link').forEach((link) => {
         link.addEventListener('click', () => {
           if (mainNav.classList.contains('show')) {
@@ -310,7 +310,6 @@
     }
 
     // Плавное появление секций
-    const items = document.querySelectorAll('[data-reveal]');
     if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -320,9 +319,10 @@
           }
         });
       }, { threshold: 0.15 });
-      items.forEach((item) => observer.observe(item));
-    } else {
-      items.forEach((item) => item.classList.add('is-visible'));
+      document.querySelectorAll('[data-reveal]').forEach((item) => {
+        observer.observe(item);
+        item.classList.add('reveal-pending');
+      });
     }
   </script>
 </body>
