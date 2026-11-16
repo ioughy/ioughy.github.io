@@ -448,6 +448,55 @@ h1, h2, h3, h4 {
   font-size: 0.85rem;
 }
 
+/* ---------- Проекты ---------- */
+
+.project-card {
+  min-height: 250px;
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+.project-card h3 {
+  margin: 1.25rem 0 0.45rem;
+  font-size: 1.5rem;
+}
+
+.project-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 0.9rem;
+  font-size: 1.4rem;
+}
+
+.project-index {
+  color: rgba(255, 255, 255, 0.16);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.project-link:hover,
+.project-link:focus {
+  color: var(--accent-soft);
+}
+
+.project-link i {
+  transition: transform 0.2s ease;
+}
+
+.project-link:hover i {
+  transform: translate(2px, -2px);
+}
+
 /* ---------- Контакты ---------- */
 
 .contacts-panel {
