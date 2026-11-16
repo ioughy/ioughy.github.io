@@ -1,9 +1,10 @@
 /* ==========================================================================
-   Личная страница — тёмная тема с янтарным акцентом
+   Личная страница — светлая и тёмная темы с янтарным акцентом
    Bootstrap 5.3 + собственные стили
    ========================================================================== */
 
 :root {
+  color-scheme: dark;
   --bg: #131316;
   --surface: #1c1c20;
   --surface-2: #232328;
@@ -15,7 +16,37 @@
   --accent-soft: #fbbf24;
   --radius: 1rem;
   --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.7);
+  --press-shadow: #08080a;
+  --card-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.9);
+  --nav-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.85);
+  --section-tint: rgba(255, 255, 255, 0.022);
+  --pill-bg: rgba(255, 255, 255, 0.03);
+  --project-index: rgba(255, 255, 255, 0.16);
+  --scrollbar: #3f3f46;
+  --selection-text: #1a1206;
   --nav-h: 72px;
+}
+
+:root[data-bs-theme="light"] {
+  color-scheme: light;
+  --bg: #faf7f2;
+  --surface: #fffdfa;
+  --surface-2: #f1ece4;
+  --border: rgba(60, 45, 30, 0.12);
+  --border-strong: rgba(60, 45, 30, 0.22);
+  --text: #292522;
+  --muted: #665e56;
+  --accent: #a65105;
+  --accent-soft: #874000;
+  --shadow: 0 20px 50px -20px rgba(78, 57, 35, 0.18);
+  --press-shadow: #3b3028;
+  --card-shadow: 0 24px 48px -28px rgba(78, 57, 35, 0.22);
+  --nav-shadow: 0 24px 48px -24px rgba(78, 57, 35, 0.18);
+  --section-tint: rgba(130, 92, 48, 0.04);
+  --pill-bg: rgba(130, 92, 48, 0.05);
+  --project-index: #a59a8e;
+  --scrollbar: #b6aca0;
+  --selection-text: #fffdfa;
 }
 
 /* ---------- База ---------- */
@@ -48,7 +79,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #1a1206;
+  color: var(--selection-text);
 }
 
 a {
@@ -70,7 +101,7 @@ img {
 /* Аккуратный скроллбар */
 @supports (scrollbar-color: red blue) {
   html {
-    scrollbar-color: #3f3f46 var(--bg);
+    scrollbar-color: var(--scrollbar) var(--bg);
     scrollbar-width: thin;
   }
 }
@@ -195,6 +226,34 @@ h1, h2, h3, h4 {
   box-shadow: 6px 6px 0 var(--press-shadow);
 }
 
+.theme-toggle {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  color: var(--accent);
+  margin-left: auto;
+  margin-right: 0.75rem;
+}
+
+.theme-toggle.pressable-nav {
+  padding: 0;
+}
+
+.theme-toggle[hidden],
+[data-bs-theme="dark"] .theme-icon-dark,
+[data-bs-theme="light"] .theme-icon-light {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .theme-toggle {
+    order: 1;
+    margin-right: 0;
+    margin-left: 1rem;
+  }
+}
+
 @media (max-width: 991.98px) {
   .site-nav {
     align-items: flex-start;
@@ -216,7 +275,7 @@ h1, h2, h3, h4 {
     border-top: 1px solid var(--border);
     border-radius: 0 0 0.9rem 0.9rem;
     background: var(--bg);
-    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.85);
+    box-shadow: var(--nav-shadow);
     z-index: 1020;
   }
 
@@ -347,7 +406,7 @@ h1, h2, h3, h4 {
 
 .section-tinted {
   position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.022), transparent);
+  background: linear-gradient(180deg, var(--section-tint), transparent);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -365,7 +424,7 @@ h1, h2, h3, h4 {
 .info-card:hover {
   transform: translateY(-4px);
   border-color: rgba(245, 158, 11, 0.35);
-  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.9);
+  box-shadow: var(--card-shadow);
 }
 
 .info-card h3 {
@@ -399,7 +458,7 @@ h1, h2, h3, h4 {
   padding: 0.4rem 0.85rem;
   border: 1px solid var(--border-strong);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--pill-bg);
   color: var(--text);
   font-size: 0.82rem;
   font-weight: 600;
@@ -442,7 +501,7 @@ h1, h2, h3, h4 {
 }
 
 .project-index {
-  color: rgba(255, 255, 255, 0.16);
+  color: var(--project-index);
   font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -527,7 +586,6 @@ h1, h2, h3, h4 {
 /* Жёсткая тень: половина хода при наведении, полный ход при нажатии.
    Смещение кнопки и остаток тени всегда в сумме дают 6px. */
 .pressable {
-  --press-shadow: #08080a;
   border: 2px solid var(--press-shadow);
   box-shadow: 6px 6px 0 var(--press-shadow);
   transform: translate(0, 0);
@@ -669,6 +727,16 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 575.98px) {
+  .navbar-brand {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .navbar-brand.pressable-nav {
+    padding-right: 0.65rem;
+    padding-left: 0.65rem;
+  }
+
   .hero .btn-lg {
     width: 100%;
   }

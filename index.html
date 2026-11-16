@@ -4,6 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#131316">
+  <script>
+    // Выбираем тему до загрузки стилей, чтобы страница не мигала при входе.
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const validTheme = (value) => value === 'light' || value === 'dark' ? value : null;
+    let preferredTheme = null;
+    try {
+      preferredTheme = validTheme(localStorage.getItem('site-theme'));
+    } catch {
+      // Переключение работает и при недоступном хранилище браузера.
+    }
+
+    function applyTheme() {
+      const theme = preferredTheme || (systemTheme.matches ? 'dark' : 'light');
+      document.documentElement.dataset.bsTheme = theme;
+      document.querySelector('meta[name="theme-color"]').content =
+        theme === 'dark' ? '#131316' : '#faf7f2';
+      const button = document.getElementById('theme-toggle');
+      if (button) {
+        const label = theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему';
+        button.setAttribute('aria-label', label);
+        button.title = label;
+      }
+    }
+
+    applyTheme();
+    systemTheme.addEventListener('change', () => {
+      if (!preferredTheme) applyTheme();
+    });
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'site-theme' || event.key === null) {
+        preferredTheme = validTheme(event.newValue);
+        applyTheme();
+      }
+    });
+  </script>
   <title>Егор Макухин — студент «Программной инженерии» СПбГУ</title>
   <meta name="description" content="Личная страница Егора Макухина: soft skills, hard skills, образование и контакты.">
 
@@ -17,7 +52,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=5a8901ae04c5">
+  <link rel="stylesheet" href="style.css?v=7633ede56de0">
   <script>
     // При обычном входе начинаем сверху; ссылки на разделы и «Назад» сохраняем.
     const freshPage = !location.hash &&
@@ -39,6 +74,11 @@
   <nav class="navbar navbar-expand-lg sticky-top site-nav">
     <div class="container">
       <a class="navbar-brand pressable pressable-nav" href="#top">Егор Макухин</a>
+      <button id="theme-toggle" class="theme-toggle pressable pressable-nav" type="button"
+              aria-label="Включить светлую тему" title="Включить светлую тему" hidden>
+        <i class="bi bi-sun theme-icon-light" aria-hidden="true"></i>
+        <i class="bi bi-moon-stars theme-icon-dark" aria-hidden="true"></i>
+      </button>
       <button class="navbar-toggler pressable pressable-nav" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
               aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню">
         <span class="navbar-toggler-icon"></span>
@@ -310,6 +350,19 @@
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.hidden = false;
+    applyTheme();
+    themeToggle.addEventListener('click', () => {
+      preferredTheme = document.documentElement.dataset.bsTheme === 'dark' ? 'light' : 'dark';
+      applyTheme();
+      try {
+        localStorage.setItem('site-theme', preferredTheme);
+      } catch {
+        // В текущей вкладке выбор сохраняется даже без localStorage.
+      }
+    });
 
     // Явное состояние касания для Safari; свайпы и переходы по ссылкам нативные.
     document.querySelectorAll('.pressable').forEach((button) => {
