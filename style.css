@@ -226,7 +226,12 @@ h1, h2, h3, h4 {
   }
 
   .site-nav .collapsing {
-    transition-duration: 0.2s;
+    transition-duration: 0.01s;
+  }
+
+  .navbar-toggler,
+  .site-nav .nav-link {
+    touch-action: manipulation;
   }
 
   .site-nav .nav-link {
