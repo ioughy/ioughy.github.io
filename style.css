@@ -542,6 +542,18 @@ h1, h2, h3, h4 {
   box-shadow: var(--shadow);
 }
 
+@media (min-width: 992px) {
+  .contacts-heading {
+    position: relative;
+  }
+
+  .contacts-heading .eyebrow {
+    position: absolute;
+    bottom: calc(100% + 0.9rem);
+    margin-bottom: 0;
+  }
+}
+
 .contact-link {
   display: flex;
   align-items: center;
