@@ -739,6 +739,18 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 575.98px) {
+  html {
+    font-size: 93.75%;
+  }
+
+  .hero-portrait {
+    width: min(260px, 64vw);
+  }
+
+  .pressable-nav {
+    min-height: 44px;
+  }
+
   .navbar-brand {
     margin-right: 0.5rem;
     font-size: 1rem;

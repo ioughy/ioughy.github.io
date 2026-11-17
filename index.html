@@ -52,7 +52,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=14be76701f0d">
+  <link rel="stylesheet" href="style.css?v=4560579f667a">
   <script>
     // При обычном входе начинаем сверху; ссылки на разделы и «Назад» сохраняем.
     const freshPage = !location.hash &&
@@ -300,14 +300,14 @@
       <div class="container">
         <div class="contacts-panel" data-reveal>
           <div class="row g-5 align-items-center">
-            <div class="col-lg-6 contacts-heading">
+            <div class="col-lg-6 contacts-heading" data-reveal-mobile>
               <p class="eyebrow">Контакты</p>
               <h2 class="section-title mb-0">Давайте продуктивно поработаем вместе</h2>
             </div>
 
             <div class="col-lg-6">
               <div class="row g-3">
-                <div class="col-12">
+                <div class="col-12" data-reveal-mobile>
                   <a class="contact-link pressable"
                      href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=makuhinegor219@gmail.com"
                      target="_blank" rel="noopener">
@@ -315,13 +315,13 @@
                     <span><small>Email</small>makuhinegor219@gmail.com</span>
                   </a>
                 </div>
-                <div class="col-12">
+                <div class="col-12" data-reveal-mobile>
                   <a class="contact-link pressable" href="https://t.me/ioughy" target="_blank" rel="noopener">
                     <span class="icon-badge"><i class="bi bi-telegram"></i></span>
                     <span><small>Telegram</small>@ioughy</span>
                   </a>
                 </div>
-                <div class="col-12">
+                <div class="col-12" data-reveal-mobile>
                   <a class="contact-link pressable" href="https://github.com/ioughy" target="_blank" rel="noopener">
                     <span class="icon-badge"><i class="bi bi-github"></i></span>
                     <span><small>GitHub</small>ioughy</span>
@@ -405,15 +405,21 @@
 
     // Плавное появление секций
     if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // На узком экране элементы высокой панели контактов появляются отдельно.
+      const mobileLayout = window.matchMedia('(max-width: 991.98px)').matches;
+      const revealSelector = mobileLayout
+        ? '[data-reveal], [data-reveal-mobile]'
+        : '[data-reveal]';
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          const panel = mobileLayout && entry.target.classList.contains('contacts-panel');
+          if (entry.isIntersecting && (!mobileLayout || panel || entry.intersectionRatio >= 0.15)) {
             entry.target.classList.add('is-visible');
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.15 });
-      document.querySelectorAll('[data-reveal]').forEach((item) => {
+      }, { threshold: mobileLayout ? [0, 0.15] : 0.15 });
+      document.querySelectorAll(revealSelector).forEach((item) => {
         observer.observe(item);
         item.classList.add('reveal-pending');
       });
